@@ -496,13 +496,15 @@ def create_extrema_dict(d, test):
 
 def generate_initial_population(a, b, NP_indices, key):
 
-    candidates = {}
-
-    # bias matrix initialization
+    # bias matrix initialization based on 
+    # a number of rows
+    # b number of columns
+    # NP number of candidates
 
     # Kaiming He weight initialization for relu
     # loc = mean, scale = standard deviation
 
+    candidates = {}
     std = np.sqrt(2.0 / a)
 
     if key in ['WO', 'W1', 'W2', 'W3']:
@@ -516,6 +518,8 @@ def generate_initial_population(a, b, NP_indices, key):
     return candidates
 
 def mutate(NP, NP_indices, F, x):
+
+    # random mutation with distinct indices
     
     indices = list(np.arange(0,NP))
     test=[]
@@ -543,6 +547,8 @@ def mutate(NP, NP_indices, F, x):
     return y
 
 def mutate_best(NP, NP_indices, F, gen_best, x):
+
+    # best mutation with distinct indices
     
     indices = list(np.arange(0,NP))
     test=[]
@@ -570,6 +576,8 @@ def mutate_best(NP, NP_indices, F, gen_best, x):
     return y
 
 def crossover(a, NP, NP_indices, y, x, CR):
+
+    # crossover with at least one dimension swapped based on random int k
 
     z = x.copy()
 
@@ -617,8 +625,6 @@ def selection(NP_indices, fitness, NN_model,
 
 #@ray.remote
 def differential_evolution(DE_model, rmse_values, a, b, NN_model):
-
-    #print(f'starting {DE}')
     
     NP = DE_model.NP
     g = DE_model.g
@@ -698,7 +704,6 @@ def differential_evolution(DE_model, rmse_values, a, b, NN_model):
 
             # find best initial generation candidates
 
-            #iidx = np.argpartition(initial_fitness, -NP)[-num_replace:]
             iidx = np.argpartition(initial_fitness, NP-1)[:NP]
 
             for j in NP_indices:
@@ -840,7 +845,6 @@ def differential_evolution(DE_model, rmse_values, a, b, NN_model):
             #c = np.rot90(a, k=1, axes=(0, 1))
 
             for q in xy:
-                #xgp_W0[q] = rotate(xgp_W0[q], angle=rot_angle, reshape=False) # handle vectors differently? 
                 xgp_W0[q] = rotate(xgp_W0[q], angle=rot_angle, reshape=True).T
                 xgp_W1[q] = rotate(xgp_W1[q], angle=rot_angle, reshape=False) # okay to not reshape with square matrices!
                 xgp_W2[q] = rotate(xgp_W2[q], angle=rot_angle, reshape=False)

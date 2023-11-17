@@ -179,6 +179,8 @@ def plot_cluster(global_min, centers, clustering_type, i, X, clabels):
 
 def constrain_boundary(w, test_function_name):
 
+    # replace boundary violations with random domain values
+
     if test_function_name == 'eggholder':
         w[w > 512] = random.randrange(-512, 513)
         w[w < -512] = random.randrange(-512, 513)
@@ -506,6 +508,10 @@ def return_vtr(test_function_name, d):
 
 def generate_initial_population(d, NP, test_function_name, min_, max_):
 
+    # create initial population based on dimension d and number of 
+    # candidates NP and prescribed minimum and maximum values in
+    # each component
+
     x =  np.full((d, NP), 1.0)
 
     # initital population
@@ -519,6 +525,8 @@ def generate_initial_population(d, NP, test_function_name, min_, max_):
     return x
 
 def mutate(d, NP, NP_indices, F, x):
+
+    # mutate mutation with distinct indices
     
     indices = list(np.arange(0,NP))
     test=[]
@@ -546,6 +554,8 @@ def mutate(d, NP, NP_indices, F, x):
     return y
 
 def mutate_best(d, NP, NP_indices, F, gen_best, x):
+
+    # best mutation with distinct indices
     
     indices = list(np.arange(0,NP))
     test=[]
@@ -574,18 +584,17 @@ def mutate_best(d, NP, NP_indices, F, gen_best, x):
 
 def crossover(d, NP, NP_indices, y, x, CR):
 
+    # crossover with at least one dimension swapped based on random int k
+
     z = np.full((d, NP), 1.0)
 
     for e in NP_indices:
         k = np.random.choice(np.arange(0,d),)
         for i in np.arange(0,d):
-            #k = np.random.choice(np.arange(0,d),)
             if (random.uniform(0, 1) <= CR or i == k):
                 z[i][e] = y[i][e]
-                #print(f'y accepted, k = {k}')
             else:
                 z[i][e] = x[i][e]
-                #print('y not accepted')
     return z
 
 def selection(d, NP_indices, x, z, test_function_def):
@@ -596,23 +605,10 @@ def selection(d, NP_indices, x, z, test_function_def):
     for e in NP_indices:
         if test_function_def(z[:,e],d) <= test_function_def(x[:,e],d):
             x[:,e] = z[:,e]
-            #print('trial accepted')
         else:
             x[:,e] = x[:,e]
-            #print('parent remains')
     return x, z
 
-def determine_F(g, i):
-    quarter = g/4
-    if 0 <= i <= quarter:
-        F = 0.95 
-    if quarter <= i <= quarter*2:
-        F = 0.94
-    if quarter*2 <= i <= quarter*3:
-        F = 0.93 
-    if quarter*3 <= i <= quarter*4:
-        F = 0.92 
-    return F
 
 def differential_evolution(DE_model, values, cond_num_values, spectral_values, relative_error_values, rank_values, 
                            svd_list, evd_list, eggholder):
@@ -643,12 +639,7 @@ def differential_evolution(DE_model, values, cond_num_values, spectral_values, r
 
     for i in np.arange(0,g):
 
-        # vary mutation rate?
-
-        #F = determine_F(g, i)
-
         if i == 0:
-            #x = generate_initial_population(d, NP)
             x = generate_initial_population(d, NP, test_function_name, min_, max_)
             gen_best = np.full((d, 1), 5)
         else:
