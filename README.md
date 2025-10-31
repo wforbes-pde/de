@@ -30,8 +30,8 @@ DE-BNN requires the following dependencies to run:
 
 To install DE-BNN simply clone the repo:
 
-        git clone https://github.com/wforbes-pde/debnn.git
-        cd EXAFS-Neo-Public/
+        git clone https://github.com/wforbes-pde/de.git
+        cd de
 
 ## Usage
 
