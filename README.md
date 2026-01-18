@@ -52,33 +52,33 @@ denn_helper.py
     
 Here are the grid search parameters. 
 
-G: maximum generation.
-NP: number of population candidates. 
-F: default mutation scaling factor. 
-CR default crossover value.
-mutation_type: default mutation type.
-NPI: number of initial population candidates.
-track_len: number of generations in running-average residual; min 2.
-init: type of initial population generation; options: 'halton', 'he', 'uniform', 'latin'
-refine_param: enhancement parameters; (refine_gen_start, refine_current_start, refine_mod_start, refine_random).
-F_refine: type of F value enhancement. options: 'default', 'variable', 'weight_variable',
-F_delta: interval of points in discrete distribution to sample from.
-lowerF: lower bound of F discrete distribution.
-upperF: upper bound of F discrete distribution.
-mutation_refine: type of mutation type value enhancement. options: 'default', 'variable', 'weight_variable',
-CR_refine: type of CR value enhancement. options: 'default', 'variable', 'weight_variable',
-CR_delta:  interval of points in discrete distribution to sample from.
-lowerCR: lower bound of CR discrete distribution.
-upperCR: upper bound of CR discrete distribution.
-mcmc_args: arguments for MCMC, (run_mcmc, run_multiple_chains, num_chains), e.g. (True,False,1).
-burn_in: number of MCMC burn in generations.
-error_dist: distribution type for error distribution for mutation error; used to satisfy detailed balance. options: 'norm', 'unif'.
-error_std: distribution mean for error distribution for mutation error; used to satisfy detailed balance.
-fitness_metric: fitness function metric. options: 'rmse', 'r2', 'mae', 'mape', 'mse'
-run_enh: trigger for each enhancement method (run_svd, run_cluster, run_local).
-layers: number of neurons in each of the 3 MLP layers (n1,n2,n3).
-pred_post_sample: number of samples from the end to use. default uses length of chain.
-seed: set numpy seed; None for random int for each parameter set run. int for a fixed seed.
+    G: maximum generation.
+    NP: number of population candidates. 
+    F: default mutation scaling factor. 
+    CR default crossover value.
+    mutation_type: default mutation type.
+    NPI: number of initial population candidates.
+    track_len: number of generations in running-average residual; min 2.
+    init: type of initial population generation; options: 'halton', 'he', 'uniform', 'latin'
+    refine_param: enhancement parameters; (refine_gen_start, refine_current_start, refine_mod_start, refine_random).
+    F_refine: type of F value enhancement. options: 'default', 'variable', 'weight_variable',
+    F_delta: interval of points in discrete distribution to sample from.
+    lowerF: lower bound of F discrete distribution.
+    upperF: upper bound of F discrete distribution.
+    mutation_refine: type of mutation type value enhancement. options: 'default', 'variable', 'weight_variable',
+    CR_refine: type of CR value enhancement. options: 'default', 'variable', 'weight_variable',
+    CR_delta:  interval of points in discrete distribution to sample from.
+    lowerCR: lower bound of CR discrete distribution.
+    upperCR: upper bound of CR discrete distribution.
+    mcmc_args: arguments for MCMC, (run_mcmc, run_multiple_chains, num_chains), e.g. (True,False,1).
+    burn_in: number of MCMC burn in generations.
+    error_dist: distribution type for error distribution for mutation error; used to satisfy detailed balance. options: 'norm', 'unif'.
+    error_std: distribution mean for error distribution for mutation error; used to satisfy detailed balance.
+    fitness_metric: fitness function metric. options: 'rmse', 'r2', 'mae', 'mape', 'mse'
+    run_enh: trigger for each enhancement method (run_svd, run_cluster, run_local).
+    layers: number of neurons in each of the 3 MLP layers (n1,n2,n3).
+    pred_post_sample: number of samples from the end to use. default uses length of chain.
+    seed: set numpy seed; None for random int for each parameter set run. int for a fixed seed.
 
 
 ## Update
